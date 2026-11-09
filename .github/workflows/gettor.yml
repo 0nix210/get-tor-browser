@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v7
     - name: Download release data
       run: |
         curl https://aus1.torproject.org/torbrowser/update_3/release/downloads.json -o downloads.json
@@ -44,7 +44,7 @@ jobs:
       run: |
         wget -qi $GITHUB_WORKSPACE/url.txt
     - name: Push to release
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v3
       with:
           tag_name: ${{ env.TOR_VERSION }}
           name: ${{ env.TOR_VERSION }}
