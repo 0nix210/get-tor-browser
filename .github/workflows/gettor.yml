@@ -42,7 +42,7 @@ jobs:
         echo "TOR_VERSION=$version" >> $GITHUB_ENV
     - name: Fetch tor
       run: |
-        wget -qi --content-on-error $GITHUB_WORKSPACE/url.txt
+        wget -qi $GITHUB_WORKSPACE/url.txt --content-on-error
     - name: Push to release
       uses: softprops/action-gh-release@v3
       with:
