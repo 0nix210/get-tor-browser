@@ -42,7 +42,7 @@ jobs:
         echo "TOR_VERSION=$version" >> $GITHUB_ENV
     - name: Fetch tor
       run: |
-        xargs -n 1 -P 4 -I {} sh -c 'curl -fSLo- -O "{}" || true' < url.txt
+        xargs -n 1 -P 4 -I {} sh -c 'curl -fSL -O "{}" || true' < url.txt
     - name: Push to release
       uses: softprops/action-gh-release@v3
       with:
