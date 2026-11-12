@@ -3,7 +3,7 @@ name: GetTor
 on:
   workflow_dispatch: 
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 0 1 * *"
   
   
 permissions:
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v7
     - name: Download release data
       run: |
         curl https://aus1.torproject.org/torbrowser/update_3/release/downloads.json -o downloads.json
@@ -42,9 +42,9 @@ jobs:
         echo "TOR_VERSION=$version" >> $GITHUB_ENV
     - name: Fetch tor
       run: |
-        wget -qi $GITHUB_WORKSPACE/url.txt
+        xargs -n 1 -P 4 -I {} sh -c 'curl -fSL -O "{}" || true' < url.txt
     - name: Push to release
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v3
       with:
           tag_name: ${{ env.TOR_VERSION }}
           name: ${{ env.TOR_VERSION }}
